@@ -154,5 +154,7 @@ Temporary Items
 *.icloud
 
 .bash_history
-
+.cache
+.local
+.viminfo
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,emacs,c
