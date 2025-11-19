@@ -1,0 +1,17 @@
+# Installing C2RN
+
+To install c2rn user may wish to use the GNU Build system.
+
+### GNU Autotools not installed
+
+```sh
+mkdir build && cd build   
+../configure   
+```
+### GNU Autotools installed (prefered)
+
+```sh
+./autogen.sh
+mkdir build && cd build
+../configure
+```
