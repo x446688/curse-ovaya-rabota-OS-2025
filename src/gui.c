@@ -8,27 +8,40 @@ extern void ww_call(const char* TOKEN, char *response, size_t response_size);
 extern void ww_dial(const char* host, const char* message, char *response, size_t message_size, size_t response_size);
 extern void ww_get_self_ip(const char* message, char* ip, size_t response_size, size_t message_size);
 extern void ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const char* message, char* json, size_t response_size, size_t message_size);
-GtkWidget* label;
-GtkWidget* entry;
-GtkWidget* button;
-GtkWidget* tgtoken_input;
-GtkWidget* chat_id_input;
-struct form {
-	GtkSpinButton *refresh_time;
-	GtkButton *submit_form_button; 
-	GtkPasswordEntry *token_input;
-	GtkPasswordEntry *chat_id_input;
-};
-static void submit_form(GtkButton *btn){
-	const char* TOKEN = gtk_editable_get_text(GTK_EDITABLE(tgtoken_input));
+guint TIME;
+GtkWidget *label;
+GtkWidget *entry;
+GtkWidget *button;
+GtkWidget *tgtoken_input;
+GtkWidget *chat_id_input;
+GtkWidget *grid;
+GtkWidget *progressBar;
+GtkWidget *refresh_time_hours_spin_button;
+GtkApplication *app;
+gboolean re2rn(gpointer user_data) {
+    const char* TOKEN = gtk_editable_get_text(GTK_EDITABLE(tgtoken_input));
 	const char* CHAT_ID = gtk_editable_get_text(GTK_EDITABLE(chat_id_input));
 	char response[8192];
 	char ip[8192];
 	char json[8192];
 	ww_get_self_ip(response, ip, sizeof(ip), sizeof(ip));
 	ww_get_json(CHAT_ID, ip, TOKEN, response, json, sizeof(ip), sizeof(ip));
-	g_print("%s",json);
-	gtk_label_set_text(GTK_LABEL(label), json);
+	g_print("[HIT]: %s\n",json);
+    return TRUE; // continue looping
+}
+void on_value_changed(GtkSpinButton* self, gpointer user_data) {
+    TIME = gtk_spin_button_get_value_as_int(self);
+	g_print("[SET]: %dh\n", TIME);
+}
+static void submit_form(GtkButton *btn){
+	if (TIME == 0) {
+		TIME = 1;
+	}
+	g_print("Running in %d hour, every %d hours.\n", TIME, TIME);
+	gtk_widget_set_sensitive(button, FALSE); // disable button
+	gtk_widget_set_sensitive(refresh_time_hours_spin_button, FALSE); // disable button
+	g_timeout_add((guint)(1000)*60*60*TIME, re2rn, NULL);
+	gtk_label_set_text(GTK_LABEL(label), "Running..."); 
 }
 static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkWidget *window = gtk_application_window_new (GTK_APPLICATION (app));
@@ -45,6 +58,7 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkWidget *chat_id_input_label = gtk_label_new_with_mnemonic("User chat ID: ");
 	GtkWidget *refresh_time_hours_spin_button = gtk_spin_button_new(adjustment, 1.0, 0);
 	GtkWidget *refresh_time_hours_spin_button_label = gtk_label_new_with_mnemonic("Refresh time: ");
+	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_hours_spin_button), TRUE);
 
 	const char* text = "";
 	gtk_editable_set_text(GTK_EDITABLE(tgtoken_input), text);
@@ -65,7 +79,9 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	gtk_grid_attach (GTK_GRID (grid), refresh_time_hours_spin_button_label, 0,4,1,1);
 	gtk_grid_attach (GTK_GRID (grid), refresh_time_hours_spin_button, 0,5,1,1);
 	gtk_grid_attach (GTK_GRID (grid), button, 0,6,1,1);
-	
+
+	g_signal_connect (refresh_time_hours_spin_button, "value_changed", G_CALLBACK (on_value_changed), label);
+
 	gtk_window_set_child (GTK_WINDOW (window), grid);
 	gtk_window_present (GTK_WINDOW (window));
 }

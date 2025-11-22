@@ -97,7 +97,7 @@ void ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const
     char response[8192];
     const char* host = "api.telegram.org";
     sprintf(message,"GET /bot%s/sendMessage?chat_id=%s&text=%s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",TOKEN, chat_id, text, host);
-    printf("%s", message);
+    // printf("%s", message);
     ww_dial(host,message,response,message_size,response_size);
     regex_t regex;
     remove_newlines(response);
@@ -113,9 +113,9 @@ void ww_call(const char* TOKEN, char *response, size_t response_size) {
     const char message[1024];
     sprintf(message,"GET /bot%s/getUpdates HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",TOKEN, host);
     ww_dial(host, message, response, 1024, response_size);
-    printf("%s", response);
+    // printf("%s", response);
     host = "ifconfig.me";
     sprintf(message,"GET /ip HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", host);
     ww_dial(host, message, response, 1024, response_size);
-    printf("%s", response);
+    // printf("%s", response);
 }
