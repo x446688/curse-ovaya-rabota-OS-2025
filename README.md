@@ -1,7 +1,7 @@
 # Setup
 
 #### Requirements: 
-make, gcc, libgtk-4, pkg-config (for now), xterm 
+make, gcc, libopenssl, libgtk-4, pkg-config, xterm 
 
 #### Installation:
 
