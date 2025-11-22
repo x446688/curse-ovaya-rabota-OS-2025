@@ -75,9 +75,9 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_hours_spin_button), TRUE);
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_minutes_spin_button), TRUE);
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_seconds_spin_button), TRUE);
-	gtk_orientable_set_orientation(GTK_SPIN_BUTTON(refresh_time_hours_spin_button), GTK_ORIENTATION_VERTICAL);
-	gtk_orientable_set_orientation(GTK_SPIN_BUTTON(refresh_time_minutes_spin_button), GTK_ORIENTATION_VERTICAL);
-	gtk_orientable_set_orientation(GTK_SPIN_BUTTON(refresh_time_seconds_spin_button), GTK_ORIENTATION_VERTICAL);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(refresh_time_hours_spin_button), GTK_ORIENTATION_VERTICAL);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(refresh_time_minutes_spin_button), GTK_ORIENTATION_VERTICAL);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(refresh_time_seconds_spin_button), GTK_ORIENTATION_VERTICAL);
 
 	const char* text = "";
 	gtk_editable_set_text(GTK_EDITABLE(tgtoken_input), text);
