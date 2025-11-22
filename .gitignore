@@ -157,4 +157,8 @@ Temporary Items
 .cache
 .local
 .viminfo
+.vscode
+.deps
+autom4te.cache
+build
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,emacs,c
