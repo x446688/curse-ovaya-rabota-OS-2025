@@ -104,10 +104,11 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(docdir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_c2rn_OBJECTS = c2rn-gui.$(OBJEXT)
+am_c2rn_OBJECTS = c2rn-web.$(OBJEXT) c2rn-helper.$(OBJEXT) \
+	c2rn-gui.$(OBJEXT)
 c2rn_OBJECTS = $(am_c2rn_OBJECTS)
 am__DEPENDENCIES_1 =
-c2rn_DEPENDENCIES = $(am__DEPENDENCIES_1)
+c2rn_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 c2rn_LINK = $(CCLD) $(c2rn_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
@@ -125,7 +126,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/c2rn-gui.Po
+am__depfiles_remade = ./$(DEPDIR)/c2rn-gui.Po \
+	./$(DEPDIR)/c2rn-helper.Po ./$(DEPDIR)/c2rn-web.Po
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -266,6 +268,8 @@ PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SSL_CFLAGS = @SSL_CFLAGS@
+SSL_LIBS = @SSL_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -313,9 +317,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-c2rn_SOURCES = gui.c
-c2rn_CFLAGS = $(GTK4_CFLAGS)
-c2rn_LDADD = $(GTK4_LIBS)
+c2rn_SOURCES = web.c helper.c gui.c
+c2rn_CFLAGS = $(GTK4_CFLAGS) $(SSL_CFLAGS)
+c2rn_LDADD = $(GTK4_LIBS) $(SSL_LIBS)
 dist_doc_DATA = README
 all: all-am
 
@@ -408,6 +412,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c2rn-gui.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c2rn-helper.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c2rn-web.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -428,6 +434,34 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+c2rn-web.o: web.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -MT c2rn-web.o -MD -MP -MF $(DEPDIR)/c2rn-web.Tpo -c -o c2rn-web.o `test -f 'web.c' || echo '$(srcdir)/'`web.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/c2rn-web.Tpo $(DEPDIR)/c2rn-web.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='web.c' object='c2rn-web.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -c -o c2rn-web.o `test -f 'web.c' || echo '$(srcdir)/'`web.c
+
+c2rn-web.obj: web.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -MT c2rn-web.obj -MD -MP -MF $(DEPDIR)/c2rn-web.Tpo -c -o c2rn-web.obj `if test -f 'web.c'; then $(CYGPATH_W) 'web.c'; else $(CYGPATH_W) '$(srcdir)/web.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/c2rn-web.Tpo $(DEPDIR)/c2rn-web.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='web.c' object='c2rn-web.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -c -o c2rn-web.obj `if test -f 'web.c'; then $(CYGPATH_W) 'web.c'; else $(CYGPATH_W) '$(srcdir)/web.c'; fi`
+
+c2rn-helper.o: helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -MT c2rn-helper.o -MD -MP -MF $(DEPDIR)/c2rn-helper.Tpo -c -o c2rn-helper.o `test -f 'helper.c' || echo '$(srcdir)/'`helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/c2rn-helper.Tpo $(DEPDIR)/c2rn-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='helper.c' object='c2rn-helper.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -c -o c2rn-helper.o `test -f 'helper.c' || echo '$(srcdir)/'`helper.c
+
+c2rn-helper.obj: helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -MT c2rn-helper.obj -MD -MP -MF $(DEPDIR)/c2rn-helper.Tpo -c -o c2rn-helper.obj `if test -f 'helper.c'; then $(CYGPATH_W) 'helper.c'; else $(CYGPATH_W) '$(srcdir)/helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/c2rn-helper.Tpo $(DEPDIR)/c2rn-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='helper.c' object='c2rn-helper.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -c -o c2rn-helper.obj `if test -f 'helper.c'; then $(CYGPATH_W) 'helper.c'; else $(CYGPATH_W) '$(srcdir)/helper.c'; fi`
 
 c2rn-gui.o: gui.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2rn_CFLAGS) $(CFLAGS) -MT c2rn-gui.o -MD -MP -MF $(DEPDIR)/c2rn-gui.Tpo -c -o c2rn-gui.o `test -f 'gui.c' || echo '$(srcdir)/'`gui.c
@@ -745,6 +779,8 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f ./$(DEPDIR)/c2rn-gui.Po
+	-rm -f ./$(DEPDIR)/c2rn-helper.Po
+	-rm -f ./$(DEPDIR)/c2rn-web.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -793,6 +829,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 	-rm -f ./$(DEPDIR)/c2rn-gui.Po
+	-rm -f ./$(DEPDIR)/c2rn-helper.Po
+	-rm -f ./$(DEPDIR)/c2rn-web.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

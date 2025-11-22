@@ -1,9 +1,13 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
-#include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+extern int ww_call();
+extern int ww_dial();
+extern int ww_get_self_ip();
+extern int ww_get_json();
 GtkWidget* label;
 GtkWidget* entry;
 GtkWidget* button;
@@ -16,14 +20,21 @@ struct form {
 	GtkPasswordEntry *chat_id_input;
 };
 static void submit_form(GtkButton *btn){
-	const char* text = gtk_editable_get_text(GTK_EDITABLE(tgtoken_input));
-	gtk_label_set_text(GTK_LABEL(label), text);
+	const char* TOKEN = gtk_editable_get_text(GTK_EDITABLE(tgtoken_input));
+	const char* CHAT_ID = gtk_editable_get_text(GTK_EDITABLE(chat_id_input));
+	char response[8192];
+	char ip[8192];
+	char json[8192];
+	int res = ww_get_self_ip(response, ip, sizeof(ip), sizeof(ip));
+	ww_get_json(CHAT_ID, ip, TOKEN, response, json, sizeof(ip), sizeof(ip));
+	g_print(json);
+	gtk_label_set_text(GTK_LABEL(label), json);
 }
 static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkWidget *window = gtk_application_window_new (GTK_APPLICATION (app));
 	gtk_window_set_title (GTK_WINDOW (window), "C2rn GUI");
 	gtk_window_set_default_size (GTK_WINDOW (window), 280, 320);
-	gtk_window_set_resizable(window, FALSE);
+	gtk_window_set_resizable(window, TRUE);
 	GtkAdjustment *adjustment = gtk_adjustment_new (1, 0.0, 24, 1.0, 5.0, 0.0);
 	
 	GtkWidget *grid = gtk_grid_new ();
@@ -46,7 +57,7 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	gtk_password_entry_set_show_peek_icon(chat_id_input, TRUE);
 	
 	gtk_grid_set_column_homogeneous(GTK_GRID (grid), TRUE);
-    	gtk_grid_set_row_homogeneous(GTK_GRID (grid), TRUE);
+    gtk_grid_set_row_homogeneous(GTK_GRID (grid), TRUE);
 	gtk_grid_attach (GTK_GRID (grid), tgtoken_input_label, 0,0,1,1);
 	gtk_grid_attach (GTK_GRID (grid), tgtoken_input, 0,1,1,1);
 	gtk_grid_attach (GTK_GRID (grid), chat_id_input_label, 0,2,1,1);
