@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
-extern int ww_call();
-extern int ww_dial();
-extern int ww_get_self_ip();
-extern int ww_get_json();
+extern void ww_call(const char* TOKEN, char *response, size_t response_size);
+extern void ww_dial(const char* host, const char* message, char *response, size_t message_size, size_t response_size);
+extern void ww_get_self_ip(const char* message, char* ip, size_t response_size, size_t message_size);
+extern void ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const char* message, char* json, size_t response_size, size_t message_size);
 GtkWidget* label;
 GtkWidget* entry;
 GtkWidget* button;
@@ -25,16 +25,16 @@ static void submit_form(GtkButton *btn){
 	char response[8192];
 	char ip[8192];
 	char json[8192];
-	int res = ww_get_self_ip(response, ip, sizeof(ip), sizeof(ip));
+	ww_get_self_ip(response, ip, sizeof(ip), sizeof(ip));
 	ww_get_json(CHAT_ID, ip, TOKEN, response, json, sizeof(ip), sizeof(ip));
-	g_print(json);
+	g_print("%s",json);
 	gtk_label_set_text(GTK_LABEL(label), json);
 }
 static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkWidget *window = gtk_application_window_new (GTK_APPLICATION (app));
 	gtk_window_set_title (GTK_WINDOW (window), "C2rn GUI");
 	gtk_window_set_default_size (GTK_WINDOW (window), 280, 320);
-	gtk_window_set_resizable(window, TRUE);
+	gtk_window_set_resizable(GTK_WINDOW (window), TRUE);
 	GtkAdjustment *adjustment = gtk_adjustment_new (1, 0.0, 24, 1.0, 5.0, 0.0);
 	
 	GtkWidget *grid = gtk_grid_new ();
@@ -53,8 +53,8 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 
 	g_signal_connect (button, "clicked", G_CALLBACK (submit_form), NULL);
 
-	gtk_password_entry_set_show_peek_icon(tgtoken_input, TRUE);
-	gtk_password_entry_set_show_peek_icon(chat_id_input, TRUE);
+	gtk_password_entry_set_show_peek_icon(GTK_PASSWORD_ENTRY (tgtoken_input), TRUE);
+	gtk_password_entry_set_show_peek_icon(GTK_PASSWORD_ENTRY (chat_id_input), TRUE);
 	
 	gtk_grid_set_column_homogeneous(GTK_GRID (grid), TRUE);
     gtk_grid_set_row_homogeneous(GTK_GRID (grid), TRUE);

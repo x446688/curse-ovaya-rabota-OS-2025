@@ -10,7 +10,9 @@
 #include <openssl/err.h>
 
 #define PORT 443
-extern void remove_newlines();
+
+extern void remove_newlines(char *str);
+
 void initialize_ssl() {
     SSL_load_error_strings();
     OpenSSL_add_ssl_algorithms();
@@ -29,7 +31,8 @@ SSL_CTX* create_ssl_context() {
     }
     return ctx;
 }
-int ww_dial(const char* host, const char* message, char *response, size_t message_size, size_t response_size) {
+// Error handling needs to be added.
+void ww_dial(const char* host, const char* message, char *response, size_t message_size, size_t response_size) {
     int sockfd;
     struct hostent *server;
     struct sockaddr_in serv_addr;
@@ -76,9 +79,8 @@ int ww_dial(const char* host, const char* message, char *response, size_t messag
     SSL_free(ssl);
     close(sockfd);
     SSL_CTX_free(ctx);
-    return 0;
 }
-int ww_get_self_ip(const char* message, char* ip, size_t response_size, size_t message_size) {
+void ww_get_self_ip(const char* message, char* ip, size_t response_size, size_t message_size) {
     char response[8192];
     const char* host = "ifconfig.me";
     sprintf(message,"GET /ip HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", host);
@@ -90,9 +92,8 @@ int ww_get_self_ip(const char* message, char* ip, size_t response_size, size_t m
     regmatch_t match;
     int result = regexec(&regex, response, 1, &match, 0);
     strncpy(ip, response + match.rm_so, match.rm_eo - match.rm_so);
-    return 0;
 }
-int ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const char* message, char* json, size_t response_size, size_t message_size) {
+void ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const char* message, char* json, size_t response_size, size_t message_size) {
     char response[8192];
     const char* host = "api.telegram.org";
     sprintf(message,"GET /bot%s/sendMessage?chat_id=%s&text=%s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",TOKEN, chat_id, text, host);
@@ -106,9 +107,8 @@ int ww_get_json(const char* chat_id, const char* text, const char* TOKEN, const 
     regmatch_t match;
     regexec(&regex, response, 1, &match, 0);
     strncpy(json, response + match.rm_so, match.rm_eo - match.rm_so);
-    return 0;
 }
-int ww_call(const char* TOKEN, char *response, size_t response_size){
+void ww_call(const char* TOKEN, char *response, size_t response_size) {
     const char* host = "api.telegram.org";
     const char message[1024];
     sprintf(message,"GET /bot%s/getUpdates HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",TOKEN, host);
@@ -118,5 +118,4 @@ int ww_call(const char* TOKEN, char *response, size_t response_size){
     sprintf(message,"GET /ip HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", host);
     ww_dial(host, message, response, 1024, response_size);
     printf("%s", response);
-    
 }
