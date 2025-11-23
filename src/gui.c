@@ -81,8 +81,6 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 
 	const char* text = "";
 	gtk_editable_set_text(GTK_EDITABLE(tgtoken_input), text);
-	// label = gtk_label_new(text);	
-	// gtk_grid_attach (GTK_GRID (grid), label, 0,8,1,1);
 
 	g_signal_connect (button, "clicked", G_CALLBACK (submit_form), NULL);
 
