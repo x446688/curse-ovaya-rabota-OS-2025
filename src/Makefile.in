@@ -241,8 +241,8 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
-GTK4_CFLAGS = @GTK4_CFLAGS@
-GTK4_LIBS = @GTK4_LIBS@
+GTK3_CFLAGS = @GTK3_CFLAGS@
+GTK3_LIBS = @GTK3_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -318,8 +318,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 c2rn_SOURCES = web.c helper.c gui.c
-c2rn_CFLAGS = $(GTK4_CFLAGS) $(SSL_CFLAGS)
-c2rn_LDADD = $(GTK4_LIBS) $(SSL_LIBS)
+c2rn_CFLAGS = $(GTK3_CFLAGS) $(SSL_CFLAGS)
+c2rn_LDADD = $(GTK3_LIBS) $(SSL_LIBS)
 dist_doc_DATA = README
 all: all-am
 

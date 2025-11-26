@@ -23,8 +23,8 @@ GtkWidget *refresh_time_minutes_spin_button;
 GtkWidget *refresh_time_seconds_spin_button;
 GtkApplication *app;
 gboolean re2rn(gpointer user_data) {
-    const char* TOKEN = gtk_editable_get_text(GTK_EDITABLE(tgtoken_input));
-	const char* CHAT_ID = gtk_editable_get_text(GTK_EDITABLE(chat_id_input));
+    const char* TOKEN = gtk_entry_get_text(GTK_ENTRY(tgtoken_input));
+	const char* CHAT_ID = gtk_entry_get_text(GTK_ENTRY(chat_id_input));
 	char response[8192];
 	char ip[8192];
 	char json[8192];
@@ -64,14 +64,16 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkAdjustment *adjustment_s = gtk_adjustment_new (1, 0.0, 60, 1.0, 5.0, 0.0);
 	GtkWidget *grid = gtk_grid_new();
 	button = gtk_button_new_with_label("Submit");
-	tgtoken_input = gtk_password_entry_new();
-	GtkWidget *tgtoken_input_label = gtk_label_new_with_mnemonic("Telegram bot token: ");
-	chat_id_input = gtk_password_entry_new();
-	GtkWidget *chat_id_input_label = gtk_label_new_with_mnemonic("User chat ID: ");
+	tgtoken_input = gtk_entry_new();
+	gtk_entry_set_visibility(GTK_ENTRY(tgtoken_input), FALSE);
+	chat_id_input = gtk_entry_new();
+	gtk_entry_set_visibility(GTK_ENTRY(chat_id_input), FALSE);
+	GtkWidget *tgtoken_input_label = gtk_label_new("Telegram bot token: ");
+	GtkWidget *chat_id_input_label = gtk_label_new("User chat ID: ");
 	GtkWidget *refresh_time_hours_spin_button = gtk_spin_button_new(adjustment_h, 1.0, 0);
 	GtkWidget *refresh_time_minutes_spin_button = gtk_spin_button_new(adjustment_m, 1.0, 0);
 	GtkWidget *refresh_time_seconds_spin_button = gtk_spin_button_new(adjustment_s, 1.0, 0);
-	GtkWidget *refresh_time_hours_spin_button_label = gtk_label_new_with_mnemonic("Refresh time: ");
+	GtkWidget *refresh_time_hours_spin_button_label = gtk_label_new("Refresh time: ");
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_hours_spin_button), TRUE);
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_minutes_spin_button), TRUE);
 	gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(refresh_time_seconds_spin_button), TRUE);
@@ -80,12 +82,9 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	gtk_orientable_set_orientation(GTK_ORIENTABLE(refresh_time_seconds_spin_button), GTK_ORIENTATION_VERTICAL);
 
 	const char* text = "";
-	gtk_editable_set_text(GTK_EDITABLE(tgtoken_input), text);
+	gtk_entry_set_text(GTK_ENTRY(tgtoken_input), text);
 
 	g_signal_connect (button, "clicked", G_CALLBACK (submit_form), NULL);
-
-	gtk_password_entry_set_show_peek_icon(GTK_PASSWORD_ENTRY (tgtoken_input), TRUE);
-	gtk_password_entry_set_show_peek_icon(GTK_PASSWORD_ENTRY (chat_id_input), TRUE);
 	
 	gtk_grid_set_column_homogeneous(GTK_GRID (grid), TRUE);
     gtk_grid_set_row_homogeneous(GTK_GRID (grid), TRUE);
@@ -103,8 +102,8 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 	g_signal_connect (refresh_time_minutes_spin_button, "value_changed", G_CALLBACK (on_minute_value_changed), label);
 	g_signal_connect (refresh_time_seconds_spin_button, "value_changed", G_CALLBACK (on_second_value_changed), label);
 
-	gtk_window_set_child (GTK_WINDOW (window), grid);
-	gtk_window_present (GTK_WINDOW (window));
+	gtk_container_add(GTK_CONTAINER (window), grid);
+	gtk_widget_show_all (window);
 }
 int main (int argc, char **argv)
 {

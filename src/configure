@@ -614,8 +614,8 @@ LTLIBOBJS
 LIBOBJS
 SSL_LIBS
 SSL_CFLAGS
-GTK4_LIBS
-GTK4_CFLAGS
+GTK3_LIBS
+GTK3_CFLAGS
 PKG_CONFIG_LIBDIR
 PKG_CONFIG_PATH
 PKG_CONFIG
@@ -724,8 +724,8 @@ CPPFLAGS
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
-GTK4_CFLAGS
-GTK4_LIBS
+GTK3_CFLAGS
+GTK3_LIBS
 SSL_CFLAGS
 SSL_LIBS'
 
@@ -1371,8 +1371,8 @@ Some influential environment variables:
               directories to add to pkg-config's search path
   PKG_CONFIG_LIBDIR
               path overriding pkg-config's built-in search path
-  GTK4_CFLAGS C compiler flags for GTK4, overriding pkg-config
-  GTK4_LIBS   linker flags for GTK4, overriding pkg-config
+  GTK3_CFLAGS C compiler flags for GTK3, overriding pkg-config
+  GTK3_LIBS   linker flags for GTK3, overriding pkg-config
   SSL_CFLAGS  C compiler flags for SSL, overriding pkg-config
   SSL_LIBS    linker flags for SSL, overriding pkg-config
 
@@ -4598,19 +4598,19 @@ if test -z "$PKG_CONFIG"; then
 fi
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gtk4 >= 4.0.0" >&5
-printf %s "checking for gtk4 >= 4.0.0... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gtk+-3.0" >&5
+printf %s "checking for gtk+-3.0... " >&6; }
 
-if test -n "$GTK4_CFLAGS"; then
-    pkg_cv_GTK4_CFLAGS="$GTK4_CFLAGS"
+if test -n "$GTK3_CFLAGS"; then
+    pkg_cv_GTK3_CFLAGS="$GTK3_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk4 >= 4.0.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk4 >= 4.0.0") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK4_CFLAGS=`$PKG_CONFIG --cflags "gtk4 >= 4.0.0" 2>/dev/null`
+  pkg_cv_GTK3_CFLAGS=`$PKG_CONFIG --cflags "gtk+-3.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -4618,16 +4618,16 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$GTK4_LIBS"; then
-    pkg_cv_GTK4_LIBS="$GTK4_LIBS"
+if test -n "$GTK3_LIBS"; then
+    pkg_cv_GTK3_LIBS="$GTK3_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk4 >= 4.0.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk4 >= 4.0.0") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK4_LIBS=`$PKG_CONFIG --libs "gtk4 >= 4.0.0" 2>/dev/null`
+  pkg_cv_GTK3_LIBS=`$PKG_CONFIG --libs "gtk+-3.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -4648,22 +4648,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                GTK4_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gtk4 >= 4.0.0" 2>&1`
+                GTK3_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gtk+-3.0" 2>&1`
         else
-                GTK4_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gtk4 >= 4.0.0" 2>&1`
+                GTK3_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gtk+-3.0" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
-        echo "$GTK4_PKG_ERRORS" >&5
+        echo "$GTK3_PKG_ERRORS" >&5
 
-        as_fn_error $? "Package requirements (gtk4 >= 4.0.0) were not met:
+        as_fn_error $? "Package requirements (gtk+-3.0) were not met:
 
-$GTK4_PKG_ERRORS
+$GTK3_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables GTK4_CFLAGS
-and GTK4_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables GTK3_CFLAGS
+and GTK3_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -4674,15 +4674,15 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables GTK4_CFLAGS
-and GTK4_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables GTK3_CFLAGS
+and GTK3_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See 'config.log' for more details" "$LINENO" 5; }
 else
-        GTK4_CFLAGS=$pkg_cv_GTK4_CFLAGS
-        GTK4_LIBS=$pkg_cv_GTK4_LIBS
+        GTK3_CFLAGS=$pkg_cv_GTK3_CFLAGS
+        GTK3_LIBS=$pkg_cv_GTK3_LIBS
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
