@@ -7,7 +7,7 @@ RUN apt -y update && apt -y install\
     gcc\
     vim\
     iproute2\
-    libgtk-4-dev\
+    libgtk-3-dev\
     libssl-dev\
     pkg-config
 RUN locale-gen ru_RU.UTF-8

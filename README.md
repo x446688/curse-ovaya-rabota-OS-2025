@@ -1,7 +1,7 @@
 # Setup
 
 #### Requirements: 
-make, gcc, libopenssl, libgtk-4, pkg-config, xterm 
+make, gcc, libopenssl, libgtk-3, pkg-config 
 
 #### Installation:
 
@@ -15,5 +15,4 @@ make
 ```
 
 #### Tested environments:
-- macOS Tahoe 26.1, arm64 (DOCKER + XQuartz)
 - Astra Linux 1.6 SE
