@@ -153,12 +153,20 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
+### etc. ###
 .bash_history
 .cache
 .local
 .viminfo
 .vscode
 .deps
+
+### Autotools ###
 autom4te.cache
 build
+build-aux
+Makefile.in
+configure
+aclocal.m4
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,emacs,c
