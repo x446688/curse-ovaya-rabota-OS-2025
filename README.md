@@ -6,7 +6,6 @@ make, gcc, libopenssl, check, libgtk-3, pkg-config
 #### Installation:
 
 ```sh
-cd src
 ./autogen.sh
 mkdir build
 cd build
