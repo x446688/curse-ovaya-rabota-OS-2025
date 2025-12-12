@@ -84,14 +84,14 @@ void on_minute_value_changed(
 	gpointer user_data
 ) {
     t_m = gtk_spin_button_get_value_as_int(self);
-	g_print("[SETM]: %dh\n", t_m);
+	g_print("[SETM]: %dm\n", t_m);
 }
 void on_second_value_changed(
 	GtkSpinButton* self, 
 	gpointer user_data
 ) {
     t_s = gtk_spin_button_get_value_as_int(self);
-	g_print("[SETS]: %dh\n", t_s);
+	g_print("[SETS]: %dh\s", t_s);
 }
 static void submit_form(
 	GtkButton *btn
