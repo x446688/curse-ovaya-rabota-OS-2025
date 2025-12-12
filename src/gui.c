@@ -104,8 +104,8 @@ static void submit_form(
 		t_h,t_m,t_s,t_h,t_m,t_s
 	);
 	gtk_widget_set_sensitive(button, FALSE); // disable button
+	gtk_button_set_label(btn, "Running..."); 
 	g_timeout_add((guint)(1000)*(t_s+60*t_m+t_h*3600), re2rn, NULL);
-	gtk_label_set_text(GTK_LABEL(label), "Running..."); 
 }
 static void app_activate (GApplication *app, gpointer *user_data) {
 	GtkWidget *window = 
