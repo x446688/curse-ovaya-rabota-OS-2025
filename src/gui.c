@@ -11,7 +11,7 @@ extern void ww_call(
 	size_t response_size
 );
 extern void ww_dial(const char* host, 
-	const char* message, 
+	char* message, 
 	char *response, 
 	size_t message_size, 
 	size_t response_size

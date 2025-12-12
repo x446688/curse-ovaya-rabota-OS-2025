@@ -34,7 +34,7 @@ SSL_CTX* create_ssl_context() {
 
 void ww_dial(
     const char* host,
-    const char* message,
+    char* message,
     char *response,
     size_t message_size,
     size_t response_size
@@ -108,6 +108,8 @@ void ww_get_self_ip(
     regmatch_t match;
     int result = regexec(&regex, response, 1, &match, 0);
     strncpy(ip, response + match.rm_so, match.rm_eo - match.rm_so);
+    ip[match.rm_eo - match.rm_so] = '\0'; // Terminator
+    regfree(&regex);
 }
 void ww_get_json(
     const char* chat_id, 
@@ -135,6 +137,8 @@ void ww_get_json(
     regmatch_t match;
     regexec(&regex, response, 1, &match, 0);
     strncpy(json, response + match.rm_so, match.rm_eo - match.rm_so);
+    json[match.rm_eo - match.rm_so] = '\0'; // Terminator
+    regfree(&regex);
 }
 void ww_call(
     const char* TOKEN, 
