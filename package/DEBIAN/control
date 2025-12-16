@@ -6,5 +6,5 @@ Depends: libgtk-3-0, libssl3
 Architecture: amd64
 Essential: no
 Installed-Size: 40
-Maintaner: Alexey L. <alehey.p@mail.ru>
+Maintainer: Alexey L. <alehey.p@mail.ru>
 Description: GUI utility to auto send external IP of the computer
