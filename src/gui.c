@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
-
+// #include "web.h"
 extern void ww_call(
 	const char* TOKEN,
 	char *response,
@@ -91,7 +91,7 @@ void on_second_value_changed(
 	gpointer user_data
 ) {
     t_s = gtk_spin_button_get_value_as_int(self);
-	g_print("[SETS]: %dh\s", t_s);
+	g_print("[SETS]: %ds\n", t_s);
 }
 static void submit_form(
 	GtkButton *btn
@@ -107,7 +107,7 @@ static void submit_form(
 	gtk_button_set_label(btn, "Running..."); 
 	g_timeout_add((guint)(1000)*(t_s+60*t_m+t_h*3600), re2rn, NULL);
 }
-static void app_activate (GApplication *app, gpointer *user_data) {
+void app_activate(GApplication *app, gpointer *user_data) {
 	GtkWidget *window = 
 		gtk_application_window_new (GTK_APPLICATION (app));
 	gtk_window_set_title (GTK_WINDOW (window), "C2rn GUI");
@@ -234,19 +234,4 @@ static void app_activate (GApplication *app, gpointer *user_data) {
 
 	gtk_container_add(GTK_CONTAINER (window), grid);
 	gtk_widget_show_all (window);
-}
-int main (int argc, char **argv)
-{
-	GtkApplication *app = 
-		gtk_application_new ("com.github", 0); // G_APPLICATION_FLAGS_NONE
-	g_signal_connect (
-		app, 
-		"activate", 
-		G_CALLBACK (app_activate), 
-		NULL
-	);
-	int status = 
-		g_application_run (G_APPLICATION (app), argc, argv);
-	g_object_unref(app);
-	return status;
 }
