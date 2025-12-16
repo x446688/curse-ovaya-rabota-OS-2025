@@ -15,6 +15,13 @@ make check
 make install
 ```
 
+#### Distribute (DEB):
+```sh
+cp whatever_directory_the_binary_is_in/c2rn package/DEBIAN/opt/c2rn-gui   
+dpkg-deb --build package   
+sudo apt install ./package.deb   
+```
+
 #### Tested environments:
 - Astra Linux 1.6 SE
 - Mac OS Tahoe 26.1
